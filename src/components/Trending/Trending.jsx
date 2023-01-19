@@ -1,10 +1,11 @@
 
 import { useState, useEffect } from "react";
-import {Ul,Li} from './Trending.styled'
+import MovieListItem from '../pages/MovieListItem/MovieListItem'
+// import {Ul,Li} from './Trending.styled'
 import {RequestTrendingMovies} from '../Servises/Servises';
 
 const Trending = ({getIdItem}) => {
-    const imgBaseUrl = 'https://image.tmdb.org/t/p/w400';
+
     const [trendMovie, setTrendMovie] = useState([]);
    useEffect(() => {
     fetchData()
@@ -21,16 +22,15 @@ const Trending = ({getIdItem}) => {
             
           }  
     }
-        const getMoviesId = (getId) => {
-        // RequestMovie_IdDetails(getId)
-            getIdItem(getId);
-    }
-
-
+    //     const getMoviesId = (getId) => {
+    //     // RequestMovie_IdDetails(getId)
+    //         getIdItem(getId);
+    // }
     return (
         <div>
             <h1>Trending today</h1>
-            <Ul>
+            <MovieListItem trendMovie={trendMovie} />
+            {/* <Ul>
                 {trendMovie.map(({ id, title, poster_path }) => {
                     return (
                         <Li key={id}>
@@ -45,7 +45,8 @@ const Trending = ({getIdItem}) => {
                    ) 
                 })}
                 
-            </Ul>
+            </Ul> */}
+
         </div>
     )
     

@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import { RequestMovie_IdDetails } from '../Servises/Servises';
-import { DIV,PostImg } from "./TrendingItem.styled";
+import { useParams,Outlet, Link, useLocation } from 'react-router-dom';
+import { DIV, PostImg } from "./MovieDetailsItem.styled";
+import Cast from '../pages/Cast/Cast'
+import Reviews from '../pages/Reviews/Reviews'
 
-const TrendingItem = () => {
+const MovieDetailsItem = () => {
+    const postId = useParams();
     const imgBaseUrl = 'https://image.tmdb.org/t/p/w500';
-    const[trendingItem,setTrendingItem] = useState('')
+    const [trendingItem, setTrendingItem] = useState('')
+      const location = useLocation();
+        const backLink = location.state?.from ?? '/';
 
     //    console.log("🚀  trendingItem", trendingItem);
-       useEffect(() => {
-            fetchData()
-        }, []);
-    
-    const fetchData = async () => {
+    useEffect(() => {
+           
+        const fetchData = async () => {
           try {
-            const movieIdDetails = await RequestMovie_IdDetails(315162);
+            const movieIdDetails = await RequestMovie_IdDetails(postId);
             console.log("🚀  movieIdDetails", movieIdDetails );
               setTrendingItem(movieIdDetails);
           } catch (error) {
@@ -22,15 +26,22 @@ const TrendingItem = () => {
             
           }  
     }
+    fetchData()
+        }, [postId]);
+    
+    
     const { id,poster_path,
         title,release_date,
         vote_average, overview,genres } = trendingItem;
     
     return (
         <div>
-            <button type="button">
-                <a href="/">Go back</a>
-            </button>
+            <Link to={backLink}>
+                <button type="button">
+                    <a href="/">Go back</a>
+                </button>
+            </Link>
+           
             {trendingItem && (
             <>
             <DIV>
@@ -51,32 +62,30 @@ const TrendingItem = () => {
                         <br />
                         <span><b>Genders</b></span>
                         <p>
-                            {genres.map(g => g.name + "  " )}
+                            {genres.map(genre => genre.name + "  " )}
                         </p>                       
                     </div>
             </DIV>
                 <hr />
             <div>
                 <p>Addition information</p>
-                <a href="/">Cast
-                    
-                </a>
-                    <br />
-                    <a href="/">Reviews</a>
-                    </div>
+                        <Link>Cast
+                            <Cast/>
+                        </Link>
+                        <br />
+                        <Link>Reviews
+                            <Reviews/>
+                        </Link>
+            </div>      
              </>
-                
-            )
-
-            }
-            
-            
+            )}
             <hr />
+            {/* <Outlet/> */}
         </div>
     )
     
 };
-export default TrendingItem;
+export default MovieDetailsItem;
     
 
 

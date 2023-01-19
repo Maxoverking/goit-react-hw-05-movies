@@ -44,7 +44,7 @@ export const RequestMovie_IdDetails = async movie_id => {
 export const RequestMovie_IdCredits = async movie_id => {
   try {
     const response = await axios.get(
-      `/movie/100088/credits${API_KEY}&language=en-US`
+      `/movie/${movie_id}/credits${API_KEY}&language=en-US`
     );
     return response.data;
   } catch (error) {
@@ -54,7 +54,7 @@ export const RequestMovie_IdCredits = async movie_id => {
 export const RequestMovie_IdReviews = async movie_id => {
   try {
     const response = await axios.get(
-      `/movie/100088/reviews${API_KEY}&language=en-US&page=1`
+      `/movie/${movie_id}/reviews${API_KEY}&language=en-US&page=1`
     );
     return response.data;
   } catch (error) {

@@ -1,11 +1,10 @@
-import { useEffect,useState  } from "react";
-import {Ul,Li} from './SearchForm.slyled'
-// import { DIV} from './SerchForm.slyled';
-// import {RequestSearchMovies} from './Servises/Servises';
+import { useEffect, useState } from "react";
+import MovieListItem from '../pages/MovieListItem/MovieListItem'
+import {DIV,BUTTON} from './SearchForm.slyled'
+// import {Ul,Li} from './SearchForm.slyled'
 import {RequestSearchMovies} from '../Servises/Servises'
 
 const SearchForm = () => {
-     const imgBaseUrl = 'https://image.tmdb.org/t/p/w400';
 const [movieName, setMovieName] = useState('')
 const [searcMovieName, setSearchMovieName] = useState('')
 const [movies, setMovies] = useState(null)
@@ -25,15 +24,15 @@ const [movies, setMovies] = useState(null)
             return;
         }
         const renderMovie = async () => {
-            const movieList = await RequestSearchMovies(searcMovieName);
-           setMovies(movieList)
+            const {results} = await RequestSearchMovies(searcMovieName);
+           setMovies(results)
         }
        renderMovie() 
     },[searcMovieName])
 
 
     return (
-        <div>
+        <DIV>
             <form onSubmit={submitForm}>
                 <input 
                 onChange={handleChange}
@@ -43,12 +42,13 @@ const [movies, setMovies] = useState(null)
                 autoFocus
                 placeholder="Search favorite movie"
                 />
-                <button type="submit">Search</button>
+                <BUTTON type="submit">Search</BUTTON>
             </form>
             {movies && (
-                    <div>
-                <Ul>
-                    {movies.results.map(({ id, title, poster_path }) => {
+                <div>
+                     <MovieListItem trendMovie={movies} />
+                {/* <Ul>
+                    {movies.map(({ id, title, poster_path }) => {
                         return (
                             <Li key={id}>
                                 <img src={`${imgBaseUrl}${poster_path}`} 
@@ -58,12 +58,10 @@ const [movies, setMovies] = useState(null)
                             </Li>
                     ) 
                     })}              
-                </Ul>
+                </Ul> */}
             </div>
             )}
-            
-            
-      </div>
+      </DIV>
   );
 }
 export default SearchForm;

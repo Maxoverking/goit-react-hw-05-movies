@@ -1,24 +1,18 @@
-
+import{Nav,NavLinkHeader} from './Navigation.styled'
 // import {Link} from 'react-router-dom';
-// import { NavLink} from 'react-router-dom';
-// import { Outlet } from 'react-router-dom';
-// import styled from 'styled-components';
-
-// styled
+import { Outlet } from 'react-router-dom';
 
 
 const Navigation = () => {
     return (
         <>
-            <nav>
-                {/* <NavLink to="home">Home</NavLink> */}
-            <a href="/">Home</a>
+        <Nav>
+            <NavLinkHeader to="home">Home</NavLinkHeader>
             <br />
-            {/* <NavLink to="home">Movies</NavLink> */}
-            <a href="/">Movies</a>
-            </nav>
-            
-
+                <NavLinkHeader to="/movies">Movies</NavLinkHeader>
+                
+            </Nav>
+            <Outlet/>
         </>
     )
     
