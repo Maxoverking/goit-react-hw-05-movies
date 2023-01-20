@@ -1,25 +1,23 @@
 import { useState, useEffect } from 'react';
-// import { CastLi, CastUl } from './Cast.styled'
-
+import { useParams } from 'react-router-dom';
 import {RequestMovie_IdReviews } from '../../Servises/Servises';
 
 const Reviews = () => {
-    const postId = 76600;
-    // const postId = 315162;
+    const postId =useParams() ;
     const [reviews, setReviews] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const reviewsData = await RequestMovie_IdReviews(postId);
+                const reviewsData = await RequestMovie_IdReviews(postId.id);
                 setReviews(reviewsData);
             } catch (error) {
                 console.log("🚀  error", error);
             }
         }
         fetch();
-    }, [postId]);
-    console.log("🚀  reviews", reviews);
+    }, [postId.id]);
+    // console.log("🚀  reviews", reviews);
     return (
     <div>
         {reviews && reviews.results.length > 0 ? (

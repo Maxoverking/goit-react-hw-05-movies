@@ -1,33 +1,30 @@
 import { useState, useEffect } from "react";
 import { RequestMovie_IdDetails } from '../Servises/Servises';
-import { useParams,Outlet, Link, useLocation } from 'react-router-dom';
+import { useParams, Link,NavLink, useLocation} from 'react-router-dom';
 import { DIV, PostImg } from "./MovieDetailsItem.styled";
-import Cast from '../pages/Cast/Cast'
-import Reviews from '../pages/Reviews/Reviews'
+// import Cast from '../pages/Cast/Cast'
+// import Reviews from '../pages/Reviews/Reviews'
 
 const MovieDetailsItem = () => {
     const postId = useParams();
+    // const postId = 593643;
     const imgBaseUrl = 'https://image.tmdb.org/t/p/w500';
     const [trendingItem, setTrendingItem] = useState('')
-      const location = useLocation();
-        const backLink = location.state?.from ?? '/';
+    const location = useLocation();
+    const backLink = location.state?.from ?? '/';
 
     //    console.log("🚀  trendingItem", trendingItem);
     useEffect(() => {
-           
         const fetchData = async () => {
           try {
-            const movieIdDetails = await RequestMovie_IdDetails(postId);
-            console.log("🚀  movieIdDetails", movieIdDetails );
+            const movieIdDetails = await RequestMovie_IdDetails(postId.id);
               setTrendingItem(movieIdDetails);
           } catch (error) {
-
             console.log("🚀  error TrendingItem", error);
-            
           }  
     }
     fetchData()
-        }, [postId]);
+        }, [postId.id]);
     
     
     const { id,poster_path,
@@ -37,9 +34,7 @@ const MovieDetailsItem = () => {
     return (
         <div>
             <Link to={backLink}>
-                <button type="button">
-                    <a href="/">Go back</a>
-                </button>
+                <button type="button">Go back</button>
             </Link>
            
             {trendingItem && (
@@ -69,17 +64,15 @@ const MovieDetailsItem = () => {
                 <hr />
             <div>
                 <p>Addition information</p>
-                        <Link>Cast
-                            <Cast/>
-                        </Link>
+                        <NavLink to={`/credits`}>Cast</NavLink>
                         <br />
-                        <Link>Reviews
-                            <Reviews/>
-                        </Link>
+                        <NavLink path={`movies/:id`}>Reviews</NavLink>
             </div>      
              </>
             )}
             <hr />
+            {/* <Cast to={`/credits`} /> */}
+             {/* <Reviews to={`/reviews`}/> */}
             {/* <Outlet/> */}
         </div>
     )

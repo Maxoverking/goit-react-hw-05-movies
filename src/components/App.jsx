@@ -19,10 +19,11 @@ export const App = () => {
         <Navigation />
       </Header>
       <Routes>
-        <Route path='/home' element={<Trending/>}/>
+        <Route path='/' element={<Trending/>}/>
         <Route path='/movies' element={<SearchForm/>}/>
-        <Route path='/movies/:movie_id' element={<MovieDetailsItem />}/>
-      </Routes>
+        <Route path='/movies/:id' element={<MovieDetailsItem/>}/>
+          </Routes>
+          {/* <MovieDetailsItem /> */}
     {/* <Trending /> */}
     
     </DIV>

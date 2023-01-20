@@ -7,12 +7,10 @@ const Navigation = () => {
     return (
         <>
         <Nav>
-            <NavLinkHeader to="home">Home</NavLinkHeader>
-            <br />
-                <NavLinkHeader to="/movies">Movies</NavLinkHeader>
-                
-            </Nav>
-            <Outlet/>
+            <NavLinkHeader to="/">Home</NavLinkHeader>
+            <NavLinkHeader to="/movies">Movies</NavLinkHeader>
+        </Nav>
+         <Outlet/>
         </>
     )
     
