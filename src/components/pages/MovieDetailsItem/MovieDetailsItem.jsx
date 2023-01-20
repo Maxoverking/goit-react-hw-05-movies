@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { RequestMovie_IdDetails } from '../Servises/Servises';
+import { RequestMovie_IdDetails } from '../../Servises/Servises';
 import { useParams, Link,NavLink, useLocation} from 'react-router-dom';
 import { DIV, PostImg } from "./MovieDetailsItem.styled";
 // import Cast from '../pages/Cast/Cast'
@@ -11,9 +11,8 @@ const MovieDetailsItem = () => {
     const imgBaseUrl = 'https://image.tmdb.org/t/p/w500';
     const [trendingItem, setTrendingItem] = useState('')
     const location = useLocation();
-    const backLink = location.state?.from ?? '/';
+    const backLink = location.state?.from ?? '/home';
 
-    //    console.log("🚀  trendingItem", trendingItem);
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -25,7 +24,6 @@ const MovieDetailsItem = () => {
     }
     fetchData()
         }, [postId.id]);
-    
     
     const { id,poster_path,
         title,release_date,
@@ -64,9 +62,9 @@ const MovieDetailsItem = () => {
                 <hr />
             <div>
                 <p>Addition information</p>
-                        <NavLink to={`/credits`}>Cast</NavLink>
+                        <NavLink to={`credits`}>Cast</NavLink>
                         <br />
-                        <NavLink path={`movies/:id`}>Reviews</NavLink>
+                        <NavLink to={`reviews`}>Reviews</NavLink>
             </div>      
              </>
             )}

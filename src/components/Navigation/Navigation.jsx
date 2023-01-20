@@ -7,8 +7,8 @@ const Navigation = () => {
     return (
         <>
         <Nav>
-            <NavLinkHeader to="/">Home</NavLinkHeader>
-            <NavLinkHeader to="/movies">Movies</NavLinkHeader>
+            <NavLinkHeader to="home">Home</NavLinkHeader>
+            <NavLinkHeader to="movies">Movies</NavLinkHeader>
         </Nav>
          <Outlet/>
         </>
