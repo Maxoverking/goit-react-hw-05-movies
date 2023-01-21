@@ -2,7 +2,7 @@ import styled from  "styled-components";
 
 export const CastUl = styled.ul` 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   padding: 0;
 

@@ -1,68 +1,71 @@
-import { useEffect, useState } from "react";
+import { BUTTON,MyIcons} from './SearchForm.slyled'
+import { toast, Zoom } from 'react-toastify';
+
 import MovieListItem from '../pages/MovieListItem/MovieListItem'
-import {DIV,BUTTON} from './SearchForm.slyled'
-// import {Ul,Li} from './SearchForm.slyled'
 import {RequestSearchMovies} from '../Servises/Servises'
+import {useState , useEffect} from "react";
+import { useSearchParams } from "react-router-dom";
 
 const SearchForm = () => {
-const [movieName, setMovieName] = useState('')
-const [searcMovieName, setSearchMovieName] = useState('')
-const [movies, setMovies] = useState(null)
+const [movies, setMovies] = useState(null);
+const [searchMovie, setSearchMovie] = useState('')
+const [searchParams, setSearchParams] = useSearchParams();
+const movieName = searchParams.get('query') ?? '';
 
-    const handleChange = evt => {
-        const value = evt.currentTarget.value;
-        setMovieName(value.toLowerCase());
+    const handleChange = (evt) => {
+        const movieName = evt.target.value;
+        setSearchMovie(movieName.toLowerCase());
     }
-
     const submitForm = (evt) => {
         evt.preventDefault();
-        setSearchMovieName(movieName);
-          console.log("🚀  movieName", movieName);
+        setSearchParams({ query: searchMovie });
     }
     useEffect(() => {
-        if (!searcMovieName) {
+        if (!movieName.trim()) {
             return;
         }
         const renderMovie = async () => {
-            const {results} = await RequestSearchMovies(searcMovieName);
-           setMovies(results)
+            const { results } = await RequestSearchMovies(movieName);
+            if (results.length === 0) {
+                toast.error('WRONG MOVIE NAME', {
+                            transition:Zoom,
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                            icon: <MyIcons/>,
+                            });
+                return;
+            }
+            setMovies(results);
         }
-       renderMovie() 
-    },[searcMovieName])
-
+        renderMovie()
+    }, [movieName]);
 
     return (
-        <DIV>
+        <div style={{padding:'20px'}}>
             <form onSubmit={submitForm}>
-                <input 
+                <input style={{ padding:'4px 10px'}} 
                 onChange={handleChange}
                 type="text"
-                name='name'
+                value={searchMovie}
                 autoComplete="off"
                 autoFocus
                 placeholder="Search favorite movie"
                 />
-                <BUTTON type="submit">Search</BUTTON>
+                <BUTTON type="submit" >Search</BUTTON>
             </form>
-            {movies && (
-                <div>
-                     <MovieListItem trendMovie={movies} />
-                {/* <Ul>
-                    {movies.map(({ id, title, poster_path }) => {
-                        return (
-                            <Li key={id}>
-                                <img src={`${imgBaseUrl}${poster_path}`} 
-                                alt={title} 
-                                width={70}/>
-                                <a href="/" >{title}</a>
-                            </Li>
-                    ) 
-                    })}              
-                </Ul> */}
+            {movies
+                && (
+            <div>
+                <MovieListItem trendMovie={movies} />
             </div>
             )}
-      </DIV>
+      </div>
   );
 }
 export default SearchForm;
-

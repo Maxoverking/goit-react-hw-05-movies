@@ -6,21 +6,20 @@ import { RequestMovie_IdCredits } from '../../Servises/Servises';
 
 const Cast = () => {
     const imgBaseUrl = 'https://image.tmdb.org/t/p/w500';
-    const postId = useParams();
+    const {postId} = useParams();
     const [casts, setCast] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const castData = await RequestMovie_IdCredits(postId.id);
+                const castData = await RequestMovie_IdCredits(postId);
                 setCast(castData);
             } catch (error) {
                 console.log("🚀  error", error);
             }
         }
         fetch();
-    }, [postId.id]);
-    // console.log("🚀  cast", casts);
+    }, [postId]);
     return (
     <div>
         {casts && (
@@ -42,4 +41,4 @@ const Cast = () => {
     </div>
     )
 };
-export default Cast
+export default Cast;

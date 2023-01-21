@@ -3,20 +3,20 @@ import { useParams } from 'react-router-dom';
 import {RequestMovie_IdReviews } from '../../Servises/Servises';
 
 const Reviews = () => {
-    const postId =useParams() ;
+    const {postId} = useParams();
     const [reviews, setReviews] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const reviewsData = await RequestMovie_IdReviews(postId.id);
+                const reviewsData = await RequestMovie_IdReviews(postId);
                 setReviews(reviewsData);
             } catch (error) {
                 console.log("🚀  error", error);
             }
         }
         fetch();
-    }, [postId.id]);
+    }, [postId]);
     // console.log("🚀  reviews", reviews);
     return (
     <div>
