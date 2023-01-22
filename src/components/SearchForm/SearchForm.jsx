@@ -7,14 +7,14 @@ import {useState , useEffect} from "react";
 import { useSearchParams } from "react-router-dom";
 
 const SearchForm = () => {
-const [movies, setMovies] = useState(null);
-const [searchMovie, setSearchMovie] = useState('')
-const [searchParams, setSearchParams] = useSearchParams();
-const movieName = searchParams.get('query') ?? '';
+    const [searchParams, setSearchParams] = useSearchParams();
+    const movieName = searchParams.get('query') ?? '';
+    const [searchMovie, setSearchMovie] = useState(movieName);
+    const [movies, setMovies] = useState(null);
 
     const handleChange = (evt) => {
-        const movieName = evt.target.value;
-        setSearchMovie(movieName.toLowerCase());
+        const getMovieName = evt.target.value;
+        setSearchMovie(getMovieName.toLowerCase());
     }
     const submitForm = (evt) => {
         evt.preventDefault();
