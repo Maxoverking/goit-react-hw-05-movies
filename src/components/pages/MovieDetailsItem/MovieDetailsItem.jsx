@@ -8,6 +8,7 @@ const MovieDetailsItem = () => {
     const imgBaseUrl = 'https://image.tmdb.org/t/p/w500';
     const {postId} = useParams();
     const [trendingItem, setTrendingItem] = useState('');
+
     const location = useLocation();
     const backLink = location.state?.from ?? '/home';
 
@@ -23,16 +24,6 @@ const MovieDetailsItem = () => {
     fetchData()
     }, [postId]);
     
-    // const closeCast = () => {
-    //     if (!location.pathname.includes('cast')) {
-    //         // setAddCast('cast');
-    //         // return;
-    //     }
-    //     //  console.log("🚀  location.state", location.state);
-    //      console.log("🚀  location.state", location.pathname.includes(''));
-    //     //  console.log("🚀  location.state.from)", location.state.from);
-    //     // return location.pathname;
-    // }
     const { id,
         poster_path,
         title,
@@ -56,7 +47,7 @@ const MovieDetailsItem = () => {
                     <li key={id}>
                         <img src={`${imgBaseUrl}${poster_path}`} 
                         alt={title} 
-                        width={200} />
+                        width={250} />
                     </li>
                 </PostImg>
                     <div>
@@ -75,12 +66,14 @@ const MovieDetailsItem = () => {
             </DIV>
                 <hr />
             <div>
-                <p>Addition information</p>
+                <h3>Addition information</h3>
                         <NavLink to={`cast`} 
-                        state={{from:location.state?.from}}>Cast</NavLink>
+                            state={{ from: location.state?.from }}
+                        >Cast</NavLink>
                         <br />
                         <NavLink to={`reviews`}
-                        state={{ from: location.state?.from }}>Reviews</NavLink>
+                            state={{ from: location.state?.from }}
+                        >Reviews</NavLink>
             </div>      
              </>
             )}

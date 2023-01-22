@@ -1,6 +1,6 @@
 import { Link,useLocation} from 'react-router-dom';
-// import { Link} from 'react-router-dom';
 import { Ul, Li } from './MovieListItem.styled'
+import PropTypes  from "prop-types"
 
 
 const MovieListItem = ({ trendMovie }) => {
@@ -13,7 +13,7 @@ const MovieListItem = ({ trendMovie }) => {
                     <Li key={id}>
                         <img src={`${imgBaseUrl}${poster_path}`} 
                         alt={title} 
-                        width={70}/>
+                        width={80}/>
                         <Link
                             to={`/movies/${id}`} 
                             state={{ from: location.pathname+location.search}}>
@@ -25,3 +25,7 @@ const MovieListItem = ({ trendMovie }) => {
     )
 };
 export default MovieListItem;
+
+MovieListItem.propType = {
+    trendMovie: PropTypes.array.isRequired,
+}
